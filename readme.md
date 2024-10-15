@@ -30,7 +30,7 @@ Now to display content add a section as follows with `tab-content` className and
 ```
 
 
-**Github**: https://github.com/PaulleDemon/awesome-landing-pages
+**Github**: https://github.com/Impulse69
 
 ## Usage
 
@@ -46,11 +46,6 @@ During production use
 
 ```html
 <link rel="stylesheet" href="tailwind-build.css"><!--replace with path to your tailwind build-->
-```
-
-To start Tailwind during development use
-```html
-npm run start:tailwind
 ```
 
 To create a build file use
