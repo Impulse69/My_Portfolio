@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>Access Page</title>
+	<style>
+	/* Add extra spacing between input boxes and buttons in the login form only */
+	#login-form-box .inputBx { margin-bottom: 22px; }
+	#login-form-box .inputBx:last-child { margin-bottom: 0; }
+	</style>
+</head>
+<body>
+	<div class="square">
+		<i style="--clr:#00ff0a;"></i>
+		<i style="--clr:#ff0057;"></i>
+		<i style="--clr:#fffd44;"></i>
+		<div class="login" id="role-select-box">
+			<h2>Who are you?</h2>
+			<div class="inputBx">
+				<button id="viewer-btn" style="width:100%;padding:12px 20px;border-radius:40px;border:none;background:linear-gradient(45deg,#00ff0a,#fff172);color:#151f28;font-size:1.2em;cursor:pointer;">I am a Viewer</button>
+			</div>
+			<div class="inputBx">
+				<button id="owner-btn" style="width:100%;padding:12px 20px;border-radius:40px;border:none;background:linear-gradient(45deg,#ff357a,#fff172);color:#151f28;font-size:1.2em;cursor:pointer;">I am the Owner</button>
+			</div>
+		</div>
+		<div class="login" id="login-form-box" style="display:none;opacity:0;">
+			<h2>Login</h2>
+			<form id="owner-login-form" autocomplete="off">
+				<div class="inputBx">
+					<input type="password" id="password" placeholder="Password" required>
+				</div>
+				<div class="inputBx">
+					<input type="submit" value="Sign in">
+				</div>
+				<p id="login-error" style="color:#ff357a;text-align:center;display:none;margin-top:-10px;">Incorrect password</p>
+			</form>
+			<div class="links">
+				<a href="#">Forget Password</a>
+				<a href="#">Signup</a>
+			</div>
+		</div>
+	</div>
+	<script>
+	// Role selection logic
+	document.getElementById('viewer-btn').onclick = function() {
+		localStorage.setItem('userRole', 'viewer');
+		window.location.href = 'index.html';
+	};
+	document.getElementById('owner-btn').onclick = function() {
+		const roleBox = document.getElementById('role-select-box');
+		const loginBox = document.getElementById('login-form-box');
+		// Animate out role selection
+		roleBox.style.transition = 'opacity 0.5s, transform 0.5s';
+		roleBox.style.opacity = 0;
+		roleBox.style.transform = 'translateY(-40px) scale(0.95)';
+		setTimeout(() => {
+			roleBox.style.display = 'none';
+			// Animate in login form
+			loginBox.style.display = 'flex';
+			setTimeout(() => {
+				loginBox.style.transition = 'opacity 0.5s, transform 0.5s';
+				loginBox.style.opacity = 1;
+				loginBox.style.transform = 'translateY(0) scale(1)';
+			}, 10);
+		}, 500);
+	};
+	// Login form logic
+	document.getElementById('owner-login-form').onsubmit = function(e) {
+		e.preventDefault();
+		const password = document.getElementById('password').value;
+		if (password === '0000') {
+			localStorage.setItem('userRole', 'owner');
+			window.location.href = 'owner.html';
+		} else {
+			document.getElementById('login-error').style.display = 'block';
+		}
+	};
+	</script>
+</body>
+</html>
